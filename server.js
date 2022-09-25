@@ -1,8 +1,16 @@
-//Import third party Using connect
-const connect = require("connect");
+//Import eThird party modules
+import express from "express";
+import cookieParser from "cookie-parser";
+import logger from "morgan";
+import session from "express-session";
+
+//ES modules fix for __dirname
+import path, { dirname } from "path";
+import { fileURLToPath } from "url";
+const __dirname = fileURLToPath(import.meta.url);
 
 //instance app-server
-const app = connect();
+const app = express();
 
 //custom middleware
 function helloWorld(req, res, next) {
