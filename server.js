@@ -12,6 +12,23 @@ const __dirname = fileURLToPath(import.meta.url);
 //instance app-server
 const app = express();
 
+//set up viewEngine ejs
+app.set("views", path.join(__dirname, "/views"));
+app.set("view engine", "ejs");
+
+app.use(logger("dev"));
+app.use(express.json());
+app.use(express.urlencoded({ extended: false }));
+app.use(cookieParser());
+app.use(express.static(path.join(__dirname, "../public")));
+app.use(
+  session({
+    secret: "MySecret", //secreat because no onw ill have access to the code it will be encrypt
+    saveUninitialized: false, //anytime we reolod the browser the session will be lost
+    resave: false,
+  })
+);
+
 //custom middleware
 function helloWorld(req, res, next) {
   res.setHeader("Content-Type", "text/plain");
